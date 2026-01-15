@@ -34,7 +34,11 @@
       "Bash(chmod:*)",
       "Bash(/Users/boxia/Projects/kalshi/kalshi-bot-rs/scripts/analyze_arbs.sh:*)",
       "Bash(./scripts/analyze_arbs.sh:*)",
-      "Skill(reflection)"
+      "Skill(reflection)",
+      "Bash(find:*)",
+      "Bash(~/.claude/scripts/backup-claude-history.sh:*)",
+      "Bash(rm review.md:*)",
+      "Skill(backup-history)"
     ]
   },
   "hooks": {
