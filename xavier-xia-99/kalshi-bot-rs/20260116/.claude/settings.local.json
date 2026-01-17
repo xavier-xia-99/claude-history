@@ -1,0 +1,84 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(rustup update:*)",
+      "Bash(cargo build:*)",
+      "Bash(rustup component remove:*)",
+      "Bash(cargo run)",
+      "Bash(git worktree:*)",
+      "Bash(cargo check:*)",
+      "Bash(cargo test:*)",
+      "Bash(timeout 15 cargo run:*)",
+      "Bash(cat:*)",
+      "Bash(git branch:*)",
+      "Bash(cargo run:*)",
+      "Bash(timeout 10 ./target/debug/kalshi-arb-bot:*)",
+      "Bash(RUST_LOG=debug timeout 10 ./target/debug/kalshi-arb-bot:*)",
+      "Bash(ping:*)",
+      "Bash(curl --request GET --url 'https://api.elections.kalshi.com/trade-api/v2/markets?limit=100')",
+      "Bash(git add:*)",
+      "Bash(git commit:*)",
+      "Bash(git merge:*)",
+      "Bash(git push:*)",
+      "Bash(./target/debug/kalshi-arb-bot:*)",
+      "Bash(timeout 15 ./target/debug/kalshi-arb-bot:*)",
+      "Bash(timeout 20 cargo run:*)",
+      "Bash(cargo clean:*)",
+      "Bash(tmux list-sessions:*)",
+      "Bash(ls:*)",
+      "Bash(tmux new-session:*)",
+      "WebFetch(domain:docs.kalshi.com)",
+      "Bash(grep:*)",
+      "Bash(cargo fmt:*)",
+      "Bash(cargo clippy:*)",
+      "Bash(chmod:*)",
+      "Bash(/Users/boxia/Projects/kalshi/kalshi-bot-rs/scripts/analyze_arbs.sh:*)",
+      "Bash(./scripts/analyze_arbs.sh:*)",
+      "Skill(reflection)",
+      "Bash(find:*)",
+      "Bash(~/.claude/scripts/backup-claude-history.sh:*)",
+      "Bash(rm review.md:*)",
+      "Skill(backup-history)",
+      "WebSearch"
+    ]
+  },
+  "hooks": {
+    "UserPromptSubmit": [
+      {
+        "matcher": "",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "echo \"I have these agents available: [list all available agents], i will use [name agent] to solve this task as it is the best for [reason for choosing that agent]\""
+          },
+          {
+            "type": "command",
+            "command": "echo \"REPEAT OUTLOUD: \\n I WILL NOT CREATE REDUNDANT FILES \\n I WLL CLEAN UP AFTER MY SELF AND KEEP ONLY THE ACTUAL DEMANDED SOLTUTION \\n I WILL NOT OVERENGINEER \\n I WILL USE THE APROPRIATE AGENT \\n I WLL NOT ABANDON MY OBJECTIVE CREATING SIMPLER TESTING FILES\""
+          }
+        ]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": "Write(review.md)",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "~/.claude/scripts/backup-claude-history.sh --force && rm review.md",
+            "statusMessage": "Backing up Claude history..."
+          }
+        ]
+      },
+      {
+        "matcher": "Edit|Write",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "cargo fmt",
+            "statusMessage": "Formatting Rust code..."
+          }
+        ]
+      }
+    ]
+  }
+}
