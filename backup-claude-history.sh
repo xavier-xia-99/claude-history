@@ -4,7 +4,7 @@ set -e
 # Configuration
 HISTORY_REPO="git@github.com:xavier-xia-99/claude-history.git"
 HISTORY_DIR="$HOME/.cache/claude/history-repo"
-DATE=$(date +%Y%m%d)
+DATE=$(date +%Y%m)
 FORCE_MODE=false
 
 # Parse arguments
@@ -227,7 +227,7 @@ git commit -m "Backup: $PROJECT_PATH ($DATE)
 
 Automated backup from Claude Code compaction
 Project: $PROJECT_PATH
-Date: $DATE
+Month: $DATE
 Host: $(hostname)
 "
 
