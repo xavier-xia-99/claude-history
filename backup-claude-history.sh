@@ -190,6 +190,15 @@ else
     rsync -av --delete .claude/ "$TARGET_DIR/.claude/"
 fi
 
+
+# Copy custom agents if they exist
+if [ -d "$HOME/.claude/agents" ]; then
+    log_info "Copying custom agents..."
+    mkdir -p "$TARGET_DIR/agents"
+    rsync -av "$HOME/.claude/agents/" "$TARGET_DIR/agents/"
+else
+    log_warn "No custom agents found (skipping)"
+fi
 # Copy CLAUDE.md if it exists and not excluded
 if [ -f CLAUDE.md ]; then
     if [[ ! " ${EXCLUDE_FILES[@]} " =~ " CLAUDE.md " ]]; then
